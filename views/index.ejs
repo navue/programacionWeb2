@@ -8,7 +8,7 @@
 <body>
   <section style="background-image: url('fondo.jpg'); background-repeat: no-repeat; background-size: cover; text-align: center;">
     <h1>App de Comentarios</h1>
-    <p style="max-width: 720px; margin: auto; padding-bottom: 15px;">El objetivo de esta App es funcionar como un módulo de gestión de comentarios que pueda agregarse a un CV Online, permitiendo a los visitante dejar opiniones sobre el mismo, ofrecer capacitaciones u oportunidades laborales, entre otras opciones.</p>
+    <p style="max-width: 720px; margin: auto; padding-bottom: 15px;">El objetivo de esta App es funcionar como un módulo de gestión de comentarios que pueda agregarse a un CV Online, permitiendo a los visitantes dejar opiniones sobre el mismo, ofrecer capacitaciones u oportunidades laborales, entre otras opciones.</p>
     <div class="card border-primary mb-3" style="max-width: 720px; margin: auto; background-color: rgb(255, 190, 70);">
       <div class="card-header">
         <strong>Agregar un comentario</strong>
@@ -107,20 +107,20 @@
         <tbody>
           <% comentarios.forEach(comentario => { %>
             <tr>
-              <th scope="row"><%= comentario._id %></th>
-              <td class="contenido"><%= comentario.fecha %></td>
-              <td class="contenido"><%= comentario.apellido %></td>
-              <td class="contenido"><%= comentario.nombre %></td>
-              <td class="contenido"><%= comentario.email %></td>
-              <td class="contenido"><%= comentario.asunto %></td>
-              <td class="contenido"><%= comentario.mensaje %></td>
-              <td>
-                <button class="btn btn-outline-primary" onclick="mostrarFormularioEditar('<%= comentario._id %>')">
+              <th scope="row" class="w-15"><%= comentario._id %></th>
+              <td class="w-5"><%= comentario.fecha %></td>
+              <td class="w-10"><%= comentario.apellido %></td>
+              <td class="w-10"><%= comentario.nombre %></td>
+              <td class="w-10"><%= comentario.email %></td>
+              <td class="w-10"><%= comentario.asunto %></td>
+              <td class="w-30"><%= comentario.mensaje %></td>
+              <td class="w-10">
+                <button class="btn btn-outline-primary mb-2" onclick="mostrarFormularioEditar('<%= comentario._id %>')">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
                   </svg>
                 </button>
-                <button itype="submit" class="btn btn-outline-danger" onclick="eliminarComentario('<%= comentario._id %>')">
+                <button type="submit" class="btn btn-outline-danger" onclick="eliminarComentario('<%= comentario._id %>')">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
@@ -129,30 +129,42 @@
               </td>
             </tr>
             <tr id="formulario-editar-<%= comentario._id %>" style="display: none;">
-              <td colspan="8">
-                <form id="editarComentarioForm-<%= comentario._id %>" onsubmit="editarComentario(event, '<%= comentario._id %>')">
-                  <div class="form-group">
-                    <label for="apellido-<%= comentario._id %>">Apellido</label>
-                    <input type="text" class="form-control" id="apellido-<%= comentario._id %>" name="apellido" value="<%= comentario.apellido %>">
+              <td colspan="8" class="card-body text-primary" style="background-color: rgb(255, 190, 70);">
+                <form style="max-width: 720px; margin: auto; text-align: center;" id="editarComentarioForm-<%= comentario._id %>" onsubmit="editarComentario(event, '<%= comentario._id %>')">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group mb-3">
+                        <label for="apellido-<%= comentario._id %>"><strong>Apellido</strong></label>
+                        <input type="text" class="form-control" id="apellido-<%= comentario._id %>" name="apellido" value="<%= comentario.apellido %>" required>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group mb-3">
+                        <label for="nombre-<%= comentario._id %>"><strong>Nombre</strong></label>
+                        <input type="text" class="form-control" id="nombre-<%= comentario._id %>" name="nombre" value="<%= comentario.nombre %>" required>
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="nombre-<%= comentario._id %>">Nombre</label>
-                    <input type="text" class="form-control" id="nombre-<%= comentario._id %>" name="nombre" value="<%= comentario.nombre %>">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group mb-3">
+                        <label for="email-<%= comentario._id %>"><strong>Email</strong></label>
+                        <input type="email" class="form-control" id="email-<%= comentario._id %>" name="email" value="<%= comentario.email %>" required>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group mb-3">
+                        <label for="asunto-<%= comentario._id %>"><strong>Asunto</strong></label>
+                        <input type="text" class="form-control" id="asunto-<%= comentario._id %>" name="asunto" value="<%= comentario.asunto %>" required>
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label for="email-<%= comentario._id %>">Email</label>
-                    <input type="email" class="form-control" id="email-<%= comentario._id %>" name="email" value="<%= comentario.email %>">
+                  <div class="form-group mb-3">
+                    <label for="mensaje-<%= comentario._id %>"><strong>Mensaje</strong></label>
+                    <textarea class="form-control" id="mensaje-<%= comentario._id %>" name="mensaje" rows="3" required><%= comentario.mensaje %></textarea>
                   </div>
-                  <div class="form-group">
-                    <label for="asunto-<%= comentario._id %>">Asunto</label>
-                    <input type="text" class="form-control" id="asunto-<%= comentario._id %>" name="asunto" value="<%= comentario.asunto %>">
-                  </div>
-                  <div class="form-group">
-                    <label for="mensaje-<%= comentario._id %>">Mensaje</label>
-                    <textarea class="form-control" id="mensaje-<%= comentario._id %>" name="mensaje" rows="3"><%= comentario.mensaje %></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-success">Guardar</button>
-                  <button type="button" class="btn btn-secondary" onclick="ocultarFormularioEditar('<%= comentario._id %>')">Cancelar</button>
+                  <button type="submit" class="btn btn-success" onclick="ocultarFormularioEditar('<%= comentario._id %>')">Guardar</button>
+                  <button type="button" class="btn btn-danger" onclick="ocultarFormularioEditar('<%= comentario._id %>')">Cancelar</button>
                 </form>
               </td>
             </tr>
@@ -174,43 +186,50 @@
         formulario.classList.remove('was-validated');
       });
 
-    function mostrarFormularioEditar(id) {
-      document.getElementById(`comentario-${id}`).style.display = 'none';
-      document.getElementById(`formulario-editar-${id}`).style.display = 'table-row';
+      function mostrarFormularioEditar(id) {
+      const formulario = document.getElementById(`formulario-editar-${id}`);
+      if (formulario) {
+        formulario.style.display = 'table-row';
+      }
     }
 
     function ocultarFormularioEditar(id) {
-      document.getElementById(`comentario-${id}`).style.display = '';
-      document.getElementById(`formulario-editar-${id}`).style.display = 'none';
+      const formulario = document.getElementById(`formulario-editar-${id}`);
+      if (formulario) {
+        formulario.style.display = 'none';
+      }
     }
 
     function editarComentario(event, id) {
-    event.preventDefault();
-    const form = document.getElementById(`editarComentarioForm-${id}`);
-    const formData = new FormData(form);
-    const data = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
+      event.preventDefault();
 
-    fetch(`/editar/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => {
-      if (response.ok) {
-        window.location.reload();
-      } else {
-        alert('Error al editar el comentario');
-      }
-    })
-    .catch(error => {
-      console.error('Error al editar el comentario:', error);
-    });
-  }
+      const form = document.getElementById(`editarComentarioForm-${id}`);
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch(`/editar/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert(data.message);
+          const row = document.querySelector(`tr[data-id="${id}"]`);
+          if (row) {
+            row.querySelector('.apellido').textContent = data.apellido;
+            row.querySelector('.nombre').textContent = data.nombre;
+            row.querySelector('.email').textContent = data.email;
+            row.querySelector('.asunto').textContent = data.asunto;
+            row.querySelector('.mensaje').textContent = data.mensaje;
+          }
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
 
     function eliminarComentario(id) {
       fetch(`/eliminar/${id}`, {
@@ -230,219 +249,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>App de Comentarios</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body>
-    <section style="background-image: url('fondo.jpg'); background-repeat: no-repeat; background-size: cover; text-align: center;">
-      <h1>App de Comentarios</h1>
-      <p style="max-width: 720px; margin: auto; padding-bottom: 15px;">El objetivo de esta App es funcionar como un módulo de gestión de comentarios que pueda agregarse a un CV Online, permitiendo a los visitante dejar una opinión sobre el mismo, ofertas de capacitaciones u oportunidades laborales, entre otras opciones.</p>
-      <div class="card border-primary mb-3" style="max-width: 720px; margin: auto; background-color: rgb(255, 190, 70);">
-        <div class="card-header">
-          <strong>Agregar un comentario</strong>
-        </div>
-        <div class="card-body text-primary">
-          <form id="formulario" action="http://localhost:3000/" method="post">
-            <div class="row">
-              <div class="col">
-                <div class="form-group mb-3">
-                  <label>
-                    <strong>Apellido</strong>
-                  </label>
-                  <input name="apellido" type="text" class="form-control" placeholder="Este campo es OBLIGATORIO" required>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group mb-3">
-                  <label>
-                    <strong>Nombre</strong>
-                  </label>
-                  <input name="nombre" type="text" class="form-control" placeholder="Este campo es OBLIGATORIO" required>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="form-group mb-3">
-                  <label>
-                    <strong>Email</strong>
-                  </label>
-                  <input name="email" type="email" class="form-control" placeholder="Este campo es OBLIGATORIO" required>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group mb-3">
-                  <label>
-                    <strong>Asunto</strong>
-                  </label>
-                  <input name="asunto" type="text" class="form-control" placeholder="Este campo es OBLIGATORIO" required>
-                </div>
-              </div>
-            </div>
-            <div class="form-group mb-3">
-              <label>
-                <strong>Mensaje</strong>
-              </label>
-              <textarea name="mensaje" type="text" class="form-control" rows="5" placeholder="Este campo es OBLIGATORIO" required></textarea>
-            </div>
-            <button id="enviarBtn" type="submit" class="btn btn-success">Enviar</button>
-            <button id="reestablecerBtn" type="button" class="btn btn-danger">Reestablecer</button>
-          </form>
-        </div>
-      </div>
-      <fieldset>
-        <legend>Comentarios:</legend>
-      </fieldset>
-    </section>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Fecha</th>
-          <th scope="col">Apellido</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Email</th>
-          <th scope="col">Asunto</th>
-          <th scope="col">Mensaje</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(var i = 0; i < comentarios.length; i++) { %>
-        <tr>
-          <th scope="row"><%= comentarios[i]._id %></th>
-          <td class="contenido"><%= comentarios[i].fecha %></td>
-          <td class="contenido"><%= comentarios[i].apellido %></td>
-          <td class="contenido"><%= comentarios[i].nombre %></td>
-          <td class="contenido"><%= comentarios[i].email %></td>
-          <td class="contenido"><%= comentarios[i].asunto %></td>
-          <td class="contenido"><%= comentarios[i].mensaje %></td>
-          <td>
-            <button id="eliminarBtn" type="button" class="btn btn-danger" onclick="eliminar('<%= comentarios[i]._id %>')">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-              </svg>
-            </button>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <script>
-      const formulario = document.getElementById('formulario');
-      const reestablecerBtn = document.getElementById('reestablecerBtn');
-
-      function eliminar(id) {
-        fetch("http://localhost:3000/comentarios", {
-          method: "DELETE",
-          body: id
-        })
-      }
-
-      reestablecerBtn.addEventListener('click', function() {
-        const campos = formulario.getElementsByClassName('form-control');
-        for (let i = 0; i < campos.length; i++) {
-          campos[i].value = '';
-        }
-        formulario.classList.remove('was-validated');
-      });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>-->
