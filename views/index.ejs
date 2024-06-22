@@ -4,6 +4,20 @@
   <meta charset="UTF-8">
   <title>App de Comentarios</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    .table-fixed {
+      table-layout: fixed;
+      width: 100%;
+    }
+    .table-fixed th, .table-fixed td {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .w-10 { width: 10%; }
+    .w-15 { width: 15%; }
+    .w-5 { width: 5%; }
+    .w-35 { width: 35%; }
+  </style>
 </head>
 <body>
   <section style="background-image: url('fondo.jpg'); background-repeat: no-repeat; background-size: cover; text-align: center;">
@@ -113,8 +127,8 @@
               <td class="w-10"><%= comentario.nombre %></td>
               <td class="w-10"><%= comentario.email %></td>
               <td class="w-10"><%= comentario.asunto %></td>
-              <td class="w-30"><%= comentario.mensaje %></td>
-              <td class="w-10">
+              <td class="w-35"><%= comentario.mensaje %></td>
+              <td class="w-5">
                 <button class="btn btn-outline-primary mb-2" onclick="mostrarFormularioEditar('<%= comentario._id %>')">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
@@ -214,21 +228,16 @@
         },
         body: JSON.stringify(data)
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message) {
-          alert(data.message);
-          const row = document.querySelector(`tr[data-id="${id}"]`);
-          if (row) {
-            row.querySelector('.apellido').textContent = data.apellido;
-            row.querySelector('.nombre').textContent = data.nombre;
-            row.querySelector('.email').textContent = data.email;
-            row.querySelector('.asunto').textContent = data.asunto;
-            row.querySelector('.mensaje').textContent = data.mensaje;
-          }
+      .then(response => {
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          alert('Error al actualizar el comentario');
         }
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+        console.error('Error al actualizar el comentario:', error);
+      });
     }
 
     function eliminarComentario(id) {
