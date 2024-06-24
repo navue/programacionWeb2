@@ -1,0 +1,52 @@
+section {
+  background-image: url("/img/fondo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+#descripcion,
+#agregar,
+#fondoEditar form {
+  max-width: 720px;
+  margin: auto;
+}
+#descripcion {
+  padding-bottom: 15px;
+}
+#agregar,
+#fondoEditar {
+  background-color: rgb(255, 190, 70);
+}
+#mostrarTodosForm,
+#filtrarPorIdForm,
+#filtrarPorEmailForm,
+#EliminarTodosForm {
+  padding: 15px;
+}
+#fondoEditar form {
+  text-align: center;
+}
+.hidden {
+  display: none;
+}
+.table-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+.table-fixed th,
+.table-fixed td {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.w-10 {
+  width: 10%;
+}
+.w-15 {
+  width: 15%;
+}
+.w-5 {
+  width: 5%;
+}
+.w-35 {
+  width: 35%;
+}

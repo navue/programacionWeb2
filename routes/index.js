@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const { ObjectId } = require("mongodb");
-const { getCollection } = require('../db');
+const { getCollection } = require("../db");
 
 //Ruta que obtiene y muestra comentarios
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const { id, email } = req.query;
     const coleccion = getCollection();
@@ -16,29 +16,52 @@ router.get('/', async (req, res) => {
     } else {
       comentarios = await coleccion.find().toArray();
     }
-    res.render('index', { comentarios });
+    res.render("index", { comentarios });
   } catch (error) {
-    console.error('Error interno del servidor - Error al buscar comentarios: ', error.message);
-    res.status(500).send('Error interno del servidor - Error al buscar comentarios: ' + error.message);
+    console.error(
+      "Error interno del servidor - Error al buscar comentarios: ",
+      error.message
+    );
+    res
+      .status(500)
+      .send(
+        "Error interno del servidor - Error al buscar comentarios: " +
+          error.message
+      );
   }
 });
 
 //Ruta que agrega un comentario
-router.post('/agregar', async (req, res) => {
+router.post("/agregar", async (req, res) => {
   try {
     const fecha = new Date().toLocaleString();
     const { apellido, nombre, email, asunto, mensaje } = req.body;
     const coleccion = getCollection();
-    await coleccion.insertOne({ fecha, apellido, nombre, email, asunto, mensaje });
-    res.redirect('/');
+    await coleccion.insertOne({
+      fecha,
+      apellido,
+      nombre,
+      email,
+      asunto,
+      mensaje,
+    });
+    res.redirect("/");
   } catch (error) {
-    console.error('Error interno del servidor - Error al agregar comentarios: ', error.message);
-    res.status(500).send('Error interno del servidor - Error al agregar comentarios: ' + error.message);
+    console.error(
+      "Error interno del servidor - Error al agregar comentarios: ",
+      error.message
+    );
+    res
+      .status(500)
+      .send(
+        "Error interno del servidor - Error al agregar comentarios: " +
+          error.message
+      );
   }
 });
 
 //Ruta que actualiza un comentario
-router.put('/editar/:id', async (req, res) => {
+router.put("/editar/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { apellido, nombre, email, asunto, mensaje } = req.body;
@@ -48,30 +71,69 @@ router.put('/editar/:id', async (req, res) => {
       { $set: { apellido, nombre, email, asunto, mensaje } }
     );
     if (result.matchedCount === 1) {
-      res.status(200).send('Comentario actualizado');
+      res.status(200).send("Comentario actualizado");
     } else {
-      res.status(404).send('Comentario no encontrado');
+      res.status(404).send("Comentario no encontrado");
     }
   } catch (error) {
-    console.error('Error interno del servidor - Error al actualizar comentarios: ', error.message);
-    res.status(500).send('Error interno del servidor - Error al actualizar comentarios: ' + error.message);
+    console.error(
+      "Error interno del servidor - Error al actualizar comentarios: ",
+      error.message
+    );
+    res
+      .status(500)
+      .send(
+        "Error interno del servidor - Error al actualizar comentarios: " +
+          error.message
+      );
   }
 });
 
 //Ruta que elimina un comentario
-router.delete('/eliminar/:id', async (req, res) => {
+router.delete("/eliminar/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const coleccion = getCollection();
     const result = await coleccion.deleteOne({ _id: new ObjectId(id) });
     if (result.deletedCount === 1) {
-      res.status(200).send('Comentario eliminado');
+      res.status(200).send("Comentario eliminado");
     } else {
-      res.status(404).send('Comentario no encontrado');
+      res.status(404).send("Comentario no encontrado");
     }
   } catch (error) {
-    console.error('Error interno del servidor - Error al eliminar comentarios: ', error.message);
-    res.status(500).send('Error interno del servidor - Error al eliminar comentarios: ' + error.message);
+    console.error(
+      "Error interno del servidor - Error al eliminar comentarios: ",
+      error.message
+    );
+    res
+      .status(500)
+      .send(
+        "Error interno del servidor - Error al eliminar comentarios: " +
+          error.message
+      );
+  }
+});
+
+router.delete("/eliminarTodos", async (req, res) => {
+  try {
+    const coleccion = getCollection();
+    const result = await coleccion.deleteMany({});
+    if (result.deletedCount > 0) {
+      res.status(200).send("Comentarios eliminados");
+    } else {
+      res.status(404).send("No se encontraron comentarios");
+    }
+  } catch (error) {
+    console.error(
+      "Error interno del servidor - Error al eliminar comentarios: ",
+      error.message
+    );
+    res
+      .status(500)
+      .send(
+        "Error interno del servidor - Error al eliminar comentarios: " +
+          error.message
+      );
   }
 });
 
