@@ -1,5 +1,5 @@
 //Función que muestra y ocultar el formulario de edición
-function mostrarFormularioEditar(id) {
+function displayFormularioEditar(id) {
   const formulario = document.getElementById(`formulario-editar-${id}`);
   if (formulario.style.display === "none" || formulario.style.display === "") {
     formulario.style.display = "table-row";
