@@ -115,6 +115,7 @@ router.delete("/eliminar/:id", async (req, res) => {
   }
 });
 
+//Ruta que elimina todos los comentarios
 router.delete("/eliminarTodos", async (req, res) => {
   try {
     const coleccion = getCollection();
