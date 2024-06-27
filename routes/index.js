@@ -34,7 +34,8 @@ router.get("/", async (req, res) => {
 //Ruta que agrega un comentario
 router.post("/agregar", async (req, res) => {
   try {
-    const fecha = new Date().toLocaleString();
+    const opciones = { timeZone: 'America/Argentina/Buenos_Aires', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const fecha = new Date().toLocaleString('es-AR', opciones);
     const { apellido, nombre, email, asunto, mensaje } = req.body;
     const coleccion = getCollection();
     await coleccion.insertOne({
